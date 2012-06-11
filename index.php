@@ -2,11 +2,10 @@
 
 require_once('config.php');
 
-// We need the uri library for things to work
-$global_libraries[] = "uri";
 // Load up the base classes
 require_once('core/Controller.php');
 require_once('core/Model.php');
+// We need the uri library for things to work
 require_once('core/uri_library.php');
 // Load up the globals
 foreach($global_libraries as $alib) {
@@ -18,6 +17,7 @@ foreach($global_models as $amod) {
 
 $uri = new Uri_library($_SERVER['REQUEST_URI']);
 $uri_array = $uri->getFullArray();
+while($starting_token-- > 0) { array_shift($uri_array); }
 // Check if $uri->getItem(0) is a controller
 if(file_exists('controllers/'.$uri_array[0].'_controller.php')) {
 	// File exists, set the cc_name and pop the uri_array
