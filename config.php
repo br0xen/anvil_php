@@ -15,4 +15,4 @@ $global_libraries = array();
 // For example, if the system is kept in:
 // http://mysite.com/folder1/
 // Then setting this should be set to 1
-$starting_token = 1;
+$starting_token = 0;
