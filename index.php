@@ -14,6 +14,8 @@ foreach($global_libraries as $alib) {
 foreach($global_models as $amod) {
 	require_once('models/'.$amod.'_model.php');
 }
+// Buffer all output for speed!
+ob_start();
 
 $uri = new Uri_library($_SERVER['REQUEST_URI']);
 $uri_array = $uri->getFullArray();
@@ -43,5 +45,7 @@ if($c_func!==false && method_exists($c_class, $c_func)) {
 	}
 }
 
+// Flush the buffer
+ob_end_flush();
 
 ?>
