@@ -47,19 +47,11 @@ class Controller {
 		if(isset($a) && isset($func)) {
 			if(is_array($a)) {
 				foreach($a as $aa) {
-					if(defined('PHP_DIR')) {
-						$f = PHP_DIR.$func."/".$aa.".php";
-					} else {
-						$f = $func."/".$aa.".php";
-					}
+					$f = APP_ROOT."/".$func."/".$aa.".php";
 					$this->_load_file($f, ($multi===true), $vars);
 				}
 			} else {
-				if(defined('PHP_DIR')) {
-					$f = PHP_DIR.$func."/".$a.".php";
-				} else {
-					$f = $func."/".$a.".php";
-				}
+				$f = APP_ROOT."/".$func."/".$a.".php";
 				$this->_load_file($f, ($multi===true), $vars);
 			}
 		}
