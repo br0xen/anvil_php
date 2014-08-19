@@ -1,7 +1,31 @@
 <?php
 
 class Controller {
-	public function __construct() { }
+  protected $anvil;
+  public $default_function = '';
+	public function __construct($a) {
+    $this->anvil = $a;
+  }
+
+  public function index() {
+    $func_name = $this->default_function;
+    if(isset($this->anvil->request->uri_array[0])) {
+      if($this->anvil->request->uri_array[0] == $this->anvil->active_controller) {
+        if(isset($this->anvil->request->uri_array[1])) {
+          $func_name = $this->anvil->request->uri_array[1];
+        }
+      } else if(!empty($this->anvil->request->uri_array[0])) {
+        $func_name = $this->anvil->request->uri_array[0];
+      }
+    }
+    if(method_exists($this, $func_name)) {
+      return $this->$func_name();
+    } else {
+      header("HTTP/1.0 404 Not Found");
+      echo "Page Not Found";
+      exit;
+    }
+  }
 
 	public function load_models($model=NULL) {
 		$this->load_model($model);
